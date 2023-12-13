@@ -1,18 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
-    public function getData(){
-$data=date('Y-m-d');
-//$response = Http::get("https://api.soccersapi.com/v2.2/fixtures/?user=christiead546&token=7e9f8c3a8f2b8b351600e9e6448a4a2c&t=schedule&d=".$data."&league_id=1609");
-$response = Http::get("https://api.soccersapi.com/v2.2/livescores/?user=frankojarkarta&token=5eebc5641ed361006aede1d7a53f4635&t=today");
 
-return view('index',['response'=>$response]);
 
-}
+
+public function getData()
+    {
+        $client = new Client();
+
+        $response = $client->get('https://api-football-v1.p.rapidapi.com/v3/fixtures', [
+            'headers' => [
+                'X-RapidAPI-Key' => 'ec36fa380fmsh34a2bbbc11750fcp15a19cjsn995b4948dd3c',
+                'X-RapidAPI-Host' => 'api-football-v1.p.rapidapi.com',
+            ],
+            'query' => [
+                'date' => '2021-01-29',
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+
+        // Handle the fetched data as needed
+
+      return response()->json($data);;
+    }
 }

@@ -12,53 +12,14 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/line-icons.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
-  <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/nivo-lightbox.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/menu_sideslide.css">
+  
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/responsive.css">
 
 </head>
 
 <body>
-  <div class="menu-wrap">
-    <nav class="menu navbar">
-      <div class="icon-list navbar-collapse">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#video-area">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#services">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#features">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#portfolios">Our Works</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#pricing">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#blog">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#subscribe">Subscribe</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <button class="close-button" id="close-button"><i class="lnr lnr-cross"></i></button>
-  </div>
+
   <!-- Header Section Start -->
 
   <header id="video-area" data-stellar-background-ratio="0.5">
@@ -67,7 +28,7 @@
       <div class="container">
         <div class="logo-menu">
           <a href="index.html" class="logo"><span class="lnr lnr-dice"></span> SCOREBOARD</a>
-          <button class="menu-button" id="open-button"><i class="lnr lnr-menu"></i></button>
+
         </div>
       </div>
     </div>
@@ -80,8 +41,7 @@
               score's</h1>
             <p class="lead  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">Get Latest Football scores and
               new from anywhere around the world</p>
-            <a href="#" class="btn btn-common wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms"><i
-                class="lnr lnr-download"></i> Get Started</a>
+
           </div>
         </div>
       </div>
@@ -90,32 +50,9 @@
   <!-- Header Section End -->
 
 
-  <!-- Services Section Start -->
-  <section id="services" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">Our <span>Services</span>
-        </h2>
-        <hr class="lines wow zoomIn" data-wow-delay="0.3s">
-
-      </div>
-
-
-
-      <div class="row mt-5">
-
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="card" style="width: 28rem;" data-wow-delay="0.2s">
-            <img />
-            <div class="card-body">
-              <div class="card-title"></div>
-              <div class="card-body"></div>
-            </div>
-          </div>
-        </div>
-  </section>
-  <!-- Services Section End -->
-
+  <div id="wg-api-football-fixtures" data-host="v3.football.api-sports.io" data-refresh="60" data-date="2022-02-11"
+    data-key="ec36fa380fmsh34a2bbbc11750fcp15a19cjsn995b4948dd3c" data-theme="" data-show-errors="true" class="api_football_loader">
+  </div>
 
 
   <!-- Footer Section Start -->
@@ -156,6 +93,7 @@
   </div>
 
   <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  <script type="module" src="https://widgets.api-sports.io/football/1.1.8/widget.js"></script>
   <script src="js/jquery-min.js"></script>
   <script src="js/tether.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

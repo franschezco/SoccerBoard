@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/menu_sideslide.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1a9SZnLHfc3WGzweTE5Gxz37EJ5SR9xqJlM=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -60,7 +61,7 @@
                             score's</h1>
                         <p class="lead  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">Get Latest Football scores and
                             new from anywhere around the world</p>
-                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,11 +82,18 @@
             </div>
 
 
+         <center>
+            <div class="tabs" id="dateTabs"></div>
+            <div class="tabcontent" id="content">
+                <!-- Content will be dynamically updated based on the selected date -->
+            </div>
+         </center>
+
+
+
 
             <div class="row mt-5 ms-5">
-                @if ($response['meta']['count'] < 0)
-
-                <div class="col-lg-12 col-md-12 col-sm-12 text-center mb-3">
+                @if ($response['meta']['count'] < 0) <div class="col-lg-12 col-md-12 col-sm-12 text-center mb-3">
                     <div class="card" data-wow-delay="0.2s">
 
                         <div class="card-body">
@@ -96,38 +104,38 @@
 
                     </div>
 
-                </div>
-                @else
+            </div>
+            @else
 
 
 
 
 
 
-                @foreach ($response['data'] as $match )
+            @foreach ($response['data'] as $match )
 
 
-                <div class="col-lg-4 col-md-4 col-sm-12 text-center mb-3">
-                    <div class="card" data-wow-delay="0.2s">
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center mb-3">
+                <div class="card" data-wow-delay="0.2s">
 
-                        <div class="card-body">
-                            <div style="margin-top:1em"></div>
-                            <div class="card-title"><img src="{{$match['teams']['home']['img']}}" width="30px" alt=""> {{$match['teams']['home']['name']}} {{ $match['scores']['home_score'] }} - {{ $match['scores']['away_score'] }} {{$match['teams']['away']['name']}} <img width="30px" src="{{$match['teams']['away']['img']}}" alt=""> </div>
-                            <div class="card-text">@if ($match['status_name'] =='Finished')
-                                <p style="font-size: 10px; color:red">MATCH ENDED</p>
-                                @elseif ($match['status_name'] =='Notstarted')
-                                <p style="font-size: 10px; color:blue">NOT STARTED</p>
-                                @else
-                                <p style="font-size: 10px; color:green">ON GOING</p>
-                                @endif
-                            </div>
+                    <div class="card-body">
+                        <div style="margin-top:1em"></div>
+                        <div class="card-title"><img src="{{$match['teams']['home']['img']}}" width="30px" alt=""> {{$match['teams']['home']['name']}} {{ $match['scores']['home_score'] }} - {{ $match['scores']['away_score'] }} {{$match['teams']['away']['name']}} <img width="30px" src="{{$match['teams']['away']['img']}}" alt=""> </div>
+                        <div class="card-text">@if ($match['status_name'] =='Finished')
+                            <p style="font-size: 10px; color:red">MATCH ENDED</p>
+                            @elseif ($match['status_name'] =='Notstarted')
+                            <p style="font-size: 10px; color:blue">NOT STARTED</p>
+                            @else
+                            <p style="font-size: 10px; color:green">ON GOING</p>
+                            @endif
                         </div>
                     </div>
                 </div>
+            </div>
 
-                @endforeach
+            @endforeach
 
-                @endif
+            @endif
     </section>
     <!-- Services Section End -->
 
@@ -167,7 +175,108 @@
             <div class="double-bounce2"></div>
         </div>
     </div>
+<style>
+     .tabs {
+      display: flex;
+    }
+    
+    .tablinks {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    
+    .tabcontent {
+      display: none;
+      padding: 20px;
+      position: absolute;
+      top: 50px;
+    }
+    
+    .tabcontent h3 {
+      margin-top: 0;
+    }
+    
+    /* Estilos para mobile */
+    @media screen and (max-width: 600px) {
+        .tablinks {
+            background-color: #777;
+            color: white;
+            width: 100%;
+            margin: 5px 0;
+        }
 
+        .tabcontent {
+            padding: 0 18px;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            display: none;
+            position: initial;
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+       function generateDateTabs() {
+    var currentDate = new Date();
+    var dateTabs = document.getElementById("dateTabs");
+    dateTabs.innerHTML = "";
+  
+    for (var i = -2; i <= 2; i++) {
+      var tabDate = new Date(currentDate);
+      tabDate.setDate(currentDate.getDate() + i);
+  
+      var tabButton = document.createElement("button");
+      tabButton.classList.add("tablinks");
+      tabButton.textContent = formatDate(tabDate);
+      tabButton.setAttribute("onclick", `openTab('${formatDate(tabDate)}', this)`);
+      dateTabs.appendChild(tabButton);
+    }
+  
+    // Set the initial active tab
+    var activeTab = document.getElementsByClassName("tablinks")[2];
+    if (activeTab) {
+      activeTab.classList.add("active");
+      openTab(formatDate(currentDate), activeTab);
+    }
+  }
+  
+  function formatDate(date) {
+    var options = { weekday: 'short', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  }
+  
+  function openTab(date, clickedTab) {
+    // Update the content based on the selected date
+    var content = document.getElementById("content");
+    content.innerHTML = `<h3>Content for ${date}</h3><p>Some content for ${date}.</p>`;
+  
+    // Remove the "active" class from all tabs
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+      tablinks[i].style.fontWeight = "normal";
+      tablinks[i].style.color = "black";
+    }
+  
+    // Add the "active" class to the clicked tab
+    if (clickedTab) {
+      clickedTab.classList.add("active");
+      clickedTab.style.fontWeight = "bold";
+      clickedTab.style.color = "blue";
+    }
+  }
+  
+  // Generate the initial set of date tabs
+  generateDateTabs();
+  
+</script>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="js/jquery-min.js"></script>
     <script src="js/tether.min.js"></script>
